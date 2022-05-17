@@ -93,6 +93,13 @@ export class EstudanteRepository implements IEstudanteRepository {
       data: {
         status,
       },
+      select: {
+        id: true,
+        cpf: true,
+        nome: true,
+        email: true,
+        status: true,
+      },
     });
 
     return estudante;
