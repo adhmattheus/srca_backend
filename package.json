@@ -11,7 +11,7 @@
     "test": "jest",
     "migrate": "yarn prisma migrate dev --schema ./src/shared/infra/data/prisma/schema.prisma",
     "studio": "npx prisma studio --schema ./src/shared/infra/data/prisma/schema.prisma",
-    "web": "prisma migrate dev && npm run start"
+    "web": "prisma migrate dev --schema ./src/shared/infra/data/prisma/schema.prisma && npm run start"
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",
