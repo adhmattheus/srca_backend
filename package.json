@@ -1,16 +1,20 @@
 {
-  "name": "backend-api-server-pxl",
+  "name": "backend-acadigi",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "dev:server": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "ts-node src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest"
+    "test": "jest",
+    "migrate": "yarn prisma migrate dev --schema ./src/shared/infra/data/prisma/schema.prisma",
+    "studio": "npx prisma studio --schema ./src/shared/infra/data/prisma/schema.prisma",
+    "web": "prisma migrate dev && npm run start"
   },
   "dependencies": {
+    "@prisma/client": "^3.14.0",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "aws-sdk": "^2.859.0",
     "axios": "^0.21.1",
@@ -66,6 +70,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
+    "prisma": "^3.14.0",
     "ts-jest": "^26.5.3",
     "tsconfig-paths": "^3.11.0",
     "typescript": "^3.8.3"

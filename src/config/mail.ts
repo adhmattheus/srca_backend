@@ -5,8 +5,8 @@ interface IMailConfig {
     from: {
       email: string;
       name: string;
-    }
-  }
+    };
+  };
 }
 
 export default {
@@ -14,8 +14,8 @@ export default {
 
   defaults: {
     from: {
-      email: 'dev@e4digital.com.br',
-      name: 'Equipe Digital Expand',
-    }
-  }
+      email: 'dev@acadigi.com.br',
+      name: 'Equipe Acadigi',
+    },
+  },
 } as IMailConfig;

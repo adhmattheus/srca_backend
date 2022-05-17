@@ -11,15 +11,15 @@ interface IUploadConfig {
   uploadsFolder: string;
 
   multer: {
-    storage: StorageEngine,
-  }
+    storage: StorageEngine;
+  };
 
   config: {
-    disk: {},
+    disk: {};
     aws: {
       bucket: string;
-    }
-  }
+    };
+  };
 }
 
 export default {
@@ -36,15 +36,14 @@ export default {
         const fileName = `${fileHash}-${file.originalname}`;
 
         return callback(null, fileName);
-      }
+      },
     }),
   },
 
   config: {
     disk: {},
     aws: {
-      bucket: 'app-pixel-helper'
-    }
-  }
-
+      bucket: 'app-acadigi',
+    },
+  },
 } as IUploadConfig;

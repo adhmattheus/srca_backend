@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StatusAgendamento {
+  NAO_ATENDIDO
+  NAO_COMPARECEU
+  ATENDIDO
+}
+
+model Agendamento {
+  id String @id @default(uuid())
+
+  campus            String
+  cateogria         String
+  setor             String
+  dataAgendamento   DateTime          @default(now()) @map("data_agendamento")
+  statusAgendamento StatusAgendamento @default(NAO_ATENDIDO)
+
+  estudante   Estudante @relation(fields: [estudanteId], references: [id])
+  estudanteId String    @map("estudante_id")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+  @@map("agendamentos")
+}
+
+model Estudante {
+  id String @id @default(uuid())
+
+  nome   String
+  cpf    String
+  email  String
+  status String @default("ativo")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+  Agendamentos Agendamento[]
+
+  @@map("estudantes")
+}
