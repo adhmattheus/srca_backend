@@ -3,6 +3,7 @@ export interface IEstudante {
   nome: string;
   cpf: string;
   email: string;
+  senha?: string;
   status: string;
   createdAt?: Date;
   updatedAt?: Date;

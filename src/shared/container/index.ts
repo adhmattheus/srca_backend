@@ -2,7 +2,7 @@ import { container } from 'tsyringe';
 
 import './repositories';
 
-// import '@modules/users/providers';
+import '@modules/estudantes/providers';
 // import './providers';
 
 // import IUsersRepository from '@modules/users/repositories/IUsersRepository';

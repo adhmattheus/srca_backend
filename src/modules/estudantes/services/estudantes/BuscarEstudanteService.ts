@@ -6,15 +6,15 @@ import { inject, injectable } from 'tsyringe';
 import { CONTAINER } from '@shared/application/constants/container';
 
 @injectable()
-export class ListarEstudantesService {
+export class BuscarEstudanteService {
   constructor(
     @inject(CONTAINER.REPOSITORIES.ESTUDANTE)
     private estudantesRepository: IEstudanteRepository,
   ) {}
 
-  public async execute(): Promise<IEstudante[]> {
-    const listaEstudantes = await this.estudantesRepository.findAll();
+  public async execute(cpf: string): Promise<IEstudante | null> {
+    const estudante = await this.estudantesRepository.findByCPF(cpf);
 
-    return listaEstudantes;
+    return estudante;
   }
 }

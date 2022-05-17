@@ -1,11 +1,13 @@
-class AppError {
-  public readonly message: string;
+import ExtendableError from './ExtendableError';
 
+class AppError extends ExtendableError {
   public readonly statusCode: number;
+  public readonly cause: Error | undefined;
 
-  constructor(message: string, statusCode = 400) {
-    this.message = message;
+  constructor(message: string, statusCode = 400, cause?: Error) {
+    super(message);
     this.statusCode = statusCode;
+    this.cause = cause;
   }
 }
 
