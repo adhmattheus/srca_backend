@@ -4,7 +4,7 @@ import {
   CriarEstudanteService,
   ListarEstudantesPeloStatusService,
   ListarEstudantesService,
-} from '@modules/estudantes/services/estudantes';
+} from '@modules/estudantes/services';
 import AppError from '@shared/errors/AppError';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';

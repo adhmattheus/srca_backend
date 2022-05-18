@@ -22,7 +22,7 @@ model Agendamento {
   campus            String
   categoria         String
   setor             String
-  dataAgendamento   DateTime          @default(now()) @map("data_agendamento")
+  dataAgendamento   DateTime          @map("data_agendamento")
   statusAgendamento StatusAgendamento @default(NAO_ATENDIDO)
 
   estudante   Estudante @relation(fields: [estudanteId], references: [id])
