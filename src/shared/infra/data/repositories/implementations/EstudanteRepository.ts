@@ -79,6 +79,16 @@ export class EstudanteRepository implements IEstudanteRepository {
   public async findByCPF(cpf: string): Promise<IEstudante | null> {
     const estudante = await prismaClient.estudante.findUnique({
       where: { cpf },
+      select: {
+        id: true,
+        cpf: true,
+        nome: true,
+        email: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+        deletedAt: true,
+      },
     });
 
     return estudante;
