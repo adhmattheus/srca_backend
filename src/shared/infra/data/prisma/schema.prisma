@@ -52,3 +52,18 @@ model Estudante {
 
   @@map("estudantes")
 }
+
+model Admin {
+  id String @id @default(uuid())
+
+  nome   String
+  campus String
+  email  String @unique()
+  senha  String
+  status String @default("ativo")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+}

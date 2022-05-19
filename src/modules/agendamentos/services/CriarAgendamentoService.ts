@@ -37,13 +37,10 @@ export class CriarAgendamentoService {
     const findExistAgendamentoInSameDate =
       await this.agendamentosRepository.findExistAgendamento({
         data: dataAgendamento,
-        estudanteId,
       });
 
     if (findExistAgendamentoInSameDate) {
-      throw new AppError(
-        'Já existe agendamento nesta data para este estudante.',
-      );
+      throw new AppError('Já existe agendamento nesta data.');
     }
 
     const agendamentoCriado = await this.agendamentosRepository.create({

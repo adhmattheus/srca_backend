@@ -54,10 +54,9 @@ export class AgendamentoRepository implements IAgendamentoRepository {
 
   public async findExistAgendamento({
     data,
-    estudanteId,
   }: IFindExistAgendamentoDTO): Promise<IAgendamento | null> {
     const agendamento = await prismaClient.agendamento.findFirst({
-      where: { dataAgendamento: data, estudanteId },
+      where: { dataAgendamento: data },
     });
 
     return agendamento;

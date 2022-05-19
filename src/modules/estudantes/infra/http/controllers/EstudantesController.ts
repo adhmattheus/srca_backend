@@ -6,11 +6,15 @@ import {
   ListarEstudantesService,
 } from '@modules/estudantes/services';
 import AppError from '@shared/errors/AppError';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 export default class EstudantesController {
-  public async index(request: Request, response: Response): Promise<Response> {
+  public async index(
+    request: Request,
+    response: Response,
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       const handle = container.resolve(ListarEstudantesService);
 
@@ -20,11 +24,18 @@ export default class EstudantesController {
         estudantes: listaEstudantes,
       });
     } catch (error) {
-      throw new AppError('Erro ao listar estudantes.');
+      if (!(error instanceof AppError))
+        throw new AppError('Erro ao listar estudantes.');
+
+      _next(error);
     }
   }
 
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async create(
+    request: Request,
+    response: Response,
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       const { nome, email, cpf, senha } = request.body;
 
@@ -40,12 +51,19 @@ export default class EstudantesController {
       return response.json({
         estudante: estudanteCriado,
       });
-    } catch (err) {
-      throw new AppError('Erro ao criar estudante.');
+    } catch (error) {
+      if (!(error instanceof AppError))
+        throw new AppError('Erro ao criar estudante.');
+
+      _next(error);
     }
   }
 
-  public async show(request: Request, response: Response): Promise<Response> {
+  public async show(
+    request: Request,
+    response: Response,
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       const { cpf } = request.params;
 
@@ -56,15 +74,19 @@ export default class EstudantesController {
       return response.json({
         estudante,
       });
-    } catch (err) {
-      throw new AppError('Erro ao buscar estudante pelo cpf.');
+    } catch (error) {
+      if (!(error instanceof AppError))
+        throw new AppError('Erro ao buscar estudante pelo cpf.');
+
+      _next(error);
     }
   }
 
   public async updateStatus(
     request: Request,
     response: Response,
-  ): Promise<Response> {
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       const { cpf, status } = request.body;
 
@@ -78,15 +100,19 @@ export default class EstudantesController {
       return response.json({
         estudante: estudanteAtualizado,
       });
-    } catch (err) {
-      throw new AppError('Erro ao atualizar status do estudante.');
+    } catch (error) {
+      if (!(error instanceof AppError))
+        throw new AppError('Erro ao atualizar status do estudante.');
+
+      _next(error);
     }
   }
 
   public async showByStatus(
     request: Request,
     response: Response,
-  ): Promise<Response> {
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
     try {
       const { status } = request.params;
 
@@ -98,7 +124,10 @@ export default class EstudantesController {
         estudantes: listaEstudantes,
       });
     } catch (error) {
-      throw new AppError('Erro ao listar estudantes pelo status.');
+      if (!(error instanceof AppError))
+        throw new AppError('Erro ao listar estudantes pelo status.');
+
+      _next(error);
     }
   }
 }
