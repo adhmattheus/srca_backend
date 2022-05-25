@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files && prisma generate --schema ./src/shared/infra/data/prisma/schema.prisma",
     "start:prod": "node dist/shared/infra/http/server.js",
     "dev": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --respawn --transpile-only --exit-child --ignore-watch node_modules src/shared/infra/http/server.ts",
     "start": "ts-node -r tsconfig-paths/register src/shared/infra/http/server.ts",
