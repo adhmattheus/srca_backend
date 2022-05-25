@@ -1,3 +1,3 @@
-git push heroku master
+git push heroku main
 
-# heroku logs --tail
+heroku logs --tail
