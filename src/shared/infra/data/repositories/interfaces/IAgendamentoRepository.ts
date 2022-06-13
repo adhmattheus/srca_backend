@@ -12,5 +12,6 @@ export interface IAgendamentoRepository {
     data: IFindExistAgendamentoDTO,
   ): Promise<IAgendamento | null>;
   findAllByStatus(status: string): Promise<IAgendamento[]>;
+  findAllByAppointmentDate(dataAgendamento: Date): Promise<IAgendamento[]>;
   updateStatus(data: IUpdateStatusAgendamentoDTO): Promise<IAgendamento>;
 }

@@ -6,6 +6,7 @@ import AppError from '@shared/errors/AppError';
 import {
   AtualizarStatusAgendamentoService,
   CriarAgendamentoService,
+  ListarAgendamentosPelaDataAgendamentoService,
   ListarAgendamentosPeloStatusService,
   ListarAgendamentosService,
   RemoverAgendamentoService,
@@ -107,6 +108,33 @@ export default class AgendamentosController {
     } catch (error) {
       if (!(error instanceof AppError))
         throw new AppError('Erro ao listar agendamentos pelo status.');
+
+      _next(error);
+    }
+  }
+
+  public async showByAppointmentDate(
+    request: Request,
+    response: Response,
+    _next: NextFunction,
+  ): Promise<Response | undefined> {
+    try {
+      const { dataAgendamento } = request.params;
+
+      const handle = container.resolve(
+        ListarAgendamentosPelaDataAgendamentoService,
+      );
+
+      const listaAgendamentos = await handle.execute(dataAgendamento);
+
+      return response.json({
+        agendamentos: listaAgendamentos,
+      });
+    } catch (error) {
+      if (!(error instanceof AppError))
+        throw new AppError(
+          'Erro ao listar agendamentos pela data do agendamento.',
+        );
 
       _next(error);
     }

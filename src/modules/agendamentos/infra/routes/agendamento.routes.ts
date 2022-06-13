@@ -1,5 +1,5 @@
 import { celebrate, Joi, Segments } from 'celebrate';
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import AgendamentosController from '../controllers/AgendamentosController';
 
 const agendamentoRouter = Router();
@@ -54,6 +54,16 @@ agendamentoRouter.delete(
     },
   }),
   agendamentoController.remove,
+);
+
+agendamentoRouter.get(
+  '/:dataAgendamento',
+  celebrate({
+    [Segments.PARAMS]: {
+      dataAgendamento: Joi.string().required(),
+    },
+  }),
+  agendamentoController.showByAppointmentDate,
 );
 
 export default agendamentoRouter;

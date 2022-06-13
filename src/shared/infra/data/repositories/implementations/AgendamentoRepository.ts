@@ -1,4 +1,5 @@
 import { prismaClient } from '../../prisma/prismaClient';
+import { DateTime } from 'luxon';
 
 import { STATUS_AGENDAMENTO } from '@shared/application/constants/StatusAgendamento';
 import { IAgendamento } from '@shared/application/interfaces/IAgendamento';
@@ -38,6 +39,30 @@ export class AgendamentoRepository implements IAgendamentoRepository {
     const agendamentos = await prismaClient.agendamento.findMany({
       where: {
         statusAgendamento: STATUS_AGENDAMENTO[status as STATUS_AGENDAMENTO],
+      },
+    });
+
+    return agendamentos;
+  }
+
+  public async findAllByAppointmentDate(
+    dataAgendamento: Date,
+  ): Promise<IAgendamento[]> {
+    const firstHourOfMonth = DateTime.fromJSDate(new Date(dataAgendamento));
+    const lastHourOfMonth = firstHourOfMonth.plus({
+      hours: 23,
+      minutes: 59,
+      seconds: 59,
+    });
+
+    // console.log(firstHourOfMonth.toJSDate(), lastHourOfMonth.toJSDate());
+
+    const agendamentos = await prismaClient.agendamento.findMany({
+      where: {
+        dataAgendamento: {
+          gte: firstHourOfMonth.toJSDate(),
+          lte: lastHourOfMonth.toJSDate(),
+        },
       },
     });
 
