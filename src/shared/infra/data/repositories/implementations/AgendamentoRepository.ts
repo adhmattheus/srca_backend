@@ -66,6 +66,7 @@ export class AgendamentoRepository implements IAgendamentoRepository {
       },
       orderBy: {
         dataAgendamento: 'asc',
+        campus: 'asc',
       },
     });
 
