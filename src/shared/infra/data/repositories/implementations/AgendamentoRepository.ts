@@ -64,10 +64,14 @@ export class AgendamentoRepository implements IAgendamentoRepository {
           lte: lastHourOfMonth.toJSDate(),
         },
       },
-      orderBy: {
-        dataAgendamento: 'asc',
-        campus: 'asc',
-      },
+      orderBy: [
+        {
+          campus: 'asc',
+        },
+        {
+          dataAgendamento: 'asc',
+        },
+      ],
     });
 
     return agendamentos;
