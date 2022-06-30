@@ -69,6 +69,9 @@ export class AgendamentoRepository implements IAgendamentoRepository {
           campus: 'asc',
         },
         {
+          categoria: 'asc',
+        },
+        {
           dataAgendamento: 'asc',
         },
       ],
